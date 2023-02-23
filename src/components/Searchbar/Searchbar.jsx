@@ -14,7 +14,7 @@ export const Searchbar = ({ onSubmit }) => {
       <SearchForm onSubmit={onSubmit}>
         <SearchFormButton type="submit">
           <SearchFormButtonLabel>
-            <BsSearch />
+            <BsSearch size={20} />
           </SearchFormButtonLabel>
         </SearchFormButton>
 
