@@ -1,30 +1,35 @@
 import { BsSearch } from 'react-icons/bs';
 
+import { Formik, ErrorMessage } from 'formik';
+
 import {
   SearchbarHeader,
-  SearchForm,
+  Form,
+  Field,
   SearchFormButton,
   SearchFormButtonLabel,
-  SearchFormInput,
 } from 'components/Searchbar/Searchbar.styled';
 
 export const Searchbar = ({ onSubmit }) => {
   return (
     <SearchbarHeader>
-      <SearchForm onSubmit={onSubmit}>
-        <SearchFormButton type="submit">
-          <SearchFormButtonLabel>
-            <BsSearch size={20} />
-          </SearchFormButtonLabel>
-        </SearchFormButton>
+      <Formik initialValues={{ name: 'input' }}>
+        <Form onSubmit={onSubmit}>
+          <SearchFormButton type="submit">
+            <SearchFormButtonLabel>
+              <BsSearch size={20} />
+            </SearchFormButtonLabel>
+          </SearchFormButton>
 
-        <SearchFormInput
-          type="text"
-          autocomplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-        />
-      </SearchForm>
+          <Field
+            type="text"
+            name="input"
+            autocomplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+          />
+        </Form>
+      </Formik>
     </SearchbarHeader>
   );
 };

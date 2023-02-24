@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { Form as SearchForm, Field as SearchFormInput } from 'formik';
+
 export const SearchbarHeader = styled.header`
   top: 0;
   left: 0;
@@ -19,7 +21,7 @@ export const SearchbarHeader = styled.header`
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 `;
 
-export const SearchForm = styled.form`
+export const Form = styled(SearchForm)`
   display: flex;
   align-items: center;
   width: 100%;
@@ -50,7 +52,7 @@ export const SearchFormButtonLabel = styled.span`
   justify-content: center;
 `;
 
-export const SearchFormInput = styled.input`
+export const Field = styled(SearchFormInput)`
   display: inline-block;
   width: 100%;
   /* font: inherit; */
