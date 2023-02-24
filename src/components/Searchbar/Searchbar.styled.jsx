@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 
-import { Form as SearchForm, Field as SearchFormInput } from 'formik';
+import {
+  Form as SearchForm,
+  Field as SearchFormInput,
+  ErrorMessage as ErrMessage,
+} from 'formik';
 
 export const SearchbarHeader = styled.header`
   top: 0;
@@ -65,4 +69,8 @@ export const Field = styled(SearchFormInput)`
     font: inherit;
     font-size: 18px;
   }
+`;
+
+export const ErrorMessage = styled(ErrMessage)`
+  color: red;
 `;

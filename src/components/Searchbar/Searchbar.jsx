@@ -1,31 +1,40 @@
 import { BsSearch } from 'react-icons/bs';
-
-import { Formik, ErrorMessage } from 'formik';
-
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import {
   SearchbarHeader,
   Form,
   Field,
   SearchFormButton,
   SearchFormButtonLabel,
+  ErrorMessage,
 } from 'components/Searchbar/Searchbar.styled';
 
-export const onSubmit = (values, { resetForm }) => {
-  // this.props.onSubmit(values);
-  console.log(values);
-  resetForm();
+const SearchSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, 'Too Short!')
+    .max(70, 'Too Long!')
+    .required('Enter a Request'),
+});
+
+const initialValues = {
+  name: '',
 };
 
 export const Searchbar = ({ onSubmit }) => {
+  const handleSubmit = (values, action) => {
+    onSubmit(values.name);
+
+    action.resetForm();
+  };
   return (
     <SearchbarHeader>
       <Formik
-        initialValues={{ name: '' }}
-        onSubmit={values => {
-          console.log(values);
-        }}
+        initialValues={initialValues}
+        validationSchema={SearchSchema}
+        onSubmit={handleSubmit}
       >
-        <Form onSubmit={onSubmit}>
+        <Form>
           <SearchFormButton type="submit">
             <SearchFormButtonLabel>
               <BsSearch size={20} />
@@ -35,8 +44,11 @@ export const Searchbar = ({ onSubmit }) => {
           <Field
             type="text"
             name="name"
+            autoComplete="off"
             placeholder="Search images and photos"
           />
+
+          <ErrorMessage name="name" component="div" />
         </Form>
       </Formik>
     </SearchbarHeader>
