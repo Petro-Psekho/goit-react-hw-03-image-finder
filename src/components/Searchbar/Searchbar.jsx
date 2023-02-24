@@ -10,10 +10,21 @@ import {
   SearchFormButtonLabel,
 } from 'components/Searchbar/Searchbar.styled';
 
+export const onSubmit = (values, { resetForm }) => {
+  // this.props.onSubmit(values);
+  console.log(values);
+  resetForm();
+};
+
 export const Searchbar = ({ onSubmit }) => {
   return (
     <SearchbarHeader>
-      <Formik initialValues={{ name: 'input' }}>
+      <Formik
+        initialValues={{ name: '' }}
+        onSubmit={values => {
+          console.log(values);
+        }}
+      >
         <Form onSubmit={onSubmit}>
           <SearchFormButton type="submit">
             <SearchFormButtonLabel>
@@ -23,9 +34,7 @@ export const Searchbar = ({ onSubmit }) => {
 
           <Field
             type="text"
-            name="input"
-            autocomplete="off"
-            autoFocus
+            name="name"
             placeholder="Search images and photos"
           />
         </Form>
