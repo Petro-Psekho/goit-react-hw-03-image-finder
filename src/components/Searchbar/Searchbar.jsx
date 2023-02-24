@@ -13,8 +13,8 @@ import {
 const SearchSchema = Yup.object().shape({
   name: Yup.string()
     .min(3, 'Too Short!')
-    .max(70, 'Too Long!')
-    .required('Enter a Request'),
+    .max(20, 'Too Long!')
+    .required('Enter a Search Query'),
 });
 
 const initialValues = {

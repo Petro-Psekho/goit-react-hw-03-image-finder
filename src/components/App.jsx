@@ -1,7 +1,8 @@
 import { Container } from 'components/App.styled';
 import { Searchbar } from 'components/Searchbar/Searchbar';
+import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 
-import React, { Component } from 'react';
+import React, { Children, Component } from 'react';
 
 class App extends Component {
   state = { search: '' };
@@ -10,13 +11,15 @@ class App extends Component {
     this.setState({
       search: data,
     });
-    console.log(data);
   };
 
   render() {
     return (
       <Container>
         <Searchbar onSubmit={this.searchQuery} />
+        <ImageGallery searchQueryData={this.state.search}>
+          {Children}
+        </ImageGallery>
       </Container>
     );
   }
