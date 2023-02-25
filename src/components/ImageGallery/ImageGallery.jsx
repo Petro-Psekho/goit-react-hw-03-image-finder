@@ -1,16 +1,11 @@
-import React, { Component } from 'react';
+import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 
-import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
-
-class ImageGallery extends Component {
-  state = {};
-  render() {
-    return (
-      <ul className="gallery">
-        {<ImageGalleryItem searchQuery={this.props.searchQuery} />}
-      </ul>
-    );
-  }
-}
-
-export default ImageGallery;
+export const ImageGallery = ({ images }) => {
+  return (
+    <ul>
+      {images.map(({ id, webformatURL }) => (
+        <ImageGalleryItem key={id} webformatURL={webformatURL} />
+      ))}
+    </ul>
+  );
+};

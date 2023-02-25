@@ -1,7 +1,7 @@
 import React, { Children, Component } from 'react';
 import { Container } from 'components/App.styled';
 import { Searchbar } from 'components/Searchbar/Searchbar';
-import ImageGallery from 'components/ImageGallery/ImageGallery';
+import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -10,14 +10,18 @@ class App extends Component {
   state = {
     searchQuery: '',
     images: [],
+    page: 1,
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.searchQuery !== this.state.searchQuery) {
-      console.log(prevState.searchQuery);
-      console.log(this.state.searchQuery);
+    const { searchQuery, page } = this.state;
 
-      fetchQuery(this.state.searchQuery).then(resp => console.log(resp.hits));
+    if (prevState.searchQuery !== searchQuery || prevState.page !== page) {
+      fetchQuery(searchQuery, page).then(resp =>
+        this.setState(prevState => ({
+          images: [...prevState.images, ...resp.hits],
+        }))
+      );
     }
   }
 
@@ -28,12 +32,12 @@ class App extends Component {
   };
 
   render() {
+    const { images } = this.state;
+
     return (
       <Container>
         <Searchbar onSubmit={this.searchQueryData} />
-        <ImageGallery searchQuery={this.state.searchQuery}>
-          {Children}
-        </ImageGallery>
+        <ImageGallery images={images} />
         <ToastContainer position="top-center" autoClose={1500} />
       </Container>
     );
