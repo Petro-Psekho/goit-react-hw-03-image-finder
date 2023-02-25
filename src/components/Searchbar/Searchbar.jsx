@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { BsSearch } from 'react-icons/bs';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -23,7 +24,13 @@ const initialValues = {
 
 export const Searchbar = ({ onSubmit }) => {
   const handleSubmit = (values, action) => {
-    onSubmit(values.name);
+    if (values.name.trim() === '') {
+      toast.warn('Enter a Search Query!');
+      action.resetForm();
+      return;
+    }
+
+    onSubmit(values.name.toLowerCase().trim());
 
     action.resetForm();
   };

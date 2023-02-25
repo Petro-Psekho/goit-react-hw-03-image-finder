@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 
 class ImageGalleryItem extends Component {
-  state = {
-    webformatURL: '',
-    largeImageURL: '',
-  };
+  state = {};
   render() {
     return (
       <li className="gallery-item">
-        <img src={this.state.webformatURL} alt="" />
+        <h1>{this.props.searchQuery}</h1>
+        <img src="" alt="" />
       </li>
     );
   }
