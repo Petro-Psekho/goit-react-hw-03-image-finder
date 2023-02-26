@@ -54,7 +54,12 @@ class App extends Component {
 
   handleModalImage = event => {
     console.log(event);
+
     this.setState({ largeImage: event });
+  };
+
+  largeImageDel = e => {
+    this.setState({ largeImage: '' });
   };
 
   handleLoadMore = () => {
@@ -68,8 +73,11 @@ class App extends Component {
 
     return (
       <Container>
+        {largeImage && (
+          <Modalka largeImage={largeImage} largeImageDel={this.largeImageDel} />
+        )}
+
         <Searchbar onSubmit={this.searchQueryValue} />
-        <Modalka largeImage={largeImage} />
         <ImageGallery
           images={images}
           handleModalImage={this.handleModalImage}

@@ -1,18 +1,34 @@
 import React, { useState } from 'react';
-
-import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
+import 'react-responsive-modal/styles.css';
 
-export const Modalka = ({ largeImage }) => {
-  const [open, setOpen] = useState(false);
+export const Modalka = ({ largeImage, largeImageDel }) => {
+  const [open, setOpen] = useState(true);
 
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  const onOpenModal = () => {
+    if (largeImage) {
+      setOpen(true);
+    }
+  };
+
+  const onCloseModal = () => {
+    if (largeImage) {
+      largeImageDel();
+    }
+
+    setOpen(false);
+  };
 
   return (
     <div>
-      <button onClick={onOpenModal}>Open modal</button>
-      <Modal open={open} onClose={onCloseModal} center>
+      {/* <button onClick={onOpenModal}>Open modal</button> */}
+      <Modal
+        open={open}
+        onClose={onCloseModal}
+        center
+        showCloseIcon={false}
+        animationDuration={200}
+      >
         <img src={largeImage} alt="" />
       </Modal>
     </div>
