@@ -3,10 +3,10 @@ import {
   GalleryItemImage,
 } from 'components/ImageGalleryItem/ImageGalleryItem.styled';
 
-export const ImageGalleryItem = ({ id, webformatURL }) => {
+export const ImageGalleryItem = ({ id, webformatURL, tags }) => {
   return (
-    <GalleryItem key={id} className="gallery-item">
-      <GalleryItemImage src={webformatURL} alt="" />
+    <GalleryItem key={id}>
+      <GalleryItemImage src={webformatURL} alt={tags} />
     </GalleryItem>
   );
 };
