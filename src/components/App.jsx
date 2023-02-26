@@ -3,6 +3,7 @@ import { Container } from 'components/App.styled';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Button } from 'components/Button/Button';
+import { Loader } from 'components/Loader/Loader';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,12 +15,15 @@ class App extends Component {
     images: [],
     page: 1,
     showLoadMoreBtn: false,
+    loading: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
     const { searchQuery, page } = this.state;
 
     if (prevState.searchQuery !== searchQuery || prevState.page !== page) {
+      this.setState({ loading: true });
+
       fetchQuery(searchQuery, page)
         .then(resp =>
           this.setState(prevState => ({
@@ -27,7 +31,8 @@ class App extends Component {
             showLoadMoreBtn: 12 - resp.hits.length,
           }))
         )
-        .catch(error => console.log(error));
+        .catch(error => console.log(error))
+        .finally(() => this.setState({ loading: false }));
     }
   }
 
@@ -41,6 +46,7 @@ class App extends Component {
       searchQuery: value,
       page: 1,
       images: [],
+      showLoadMoreBtn: false,
     });
   };
 
@@ -57,6 +63,8 @@ class App extends Component {
       <Container>
         <Searchbar onSubmit={this.searchQueryValue} />
         <ImageGallery images={images} />
+        {this.state.loading && <Loader />}
+
         {showLoadMoreBtn === 0 && <Button onClick={this.handleLoadMore} />}
 
         <ToastContainer position="top-center" autoClose={1500} />
