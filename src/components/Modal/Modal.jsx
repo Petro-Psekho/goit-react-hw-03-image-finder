@@ -5,11 +5,11 @@ import 'react-responsive-modal/styles.css';
 export const Modalka = ({ largeImage, largeImageDel }) => {
   const [open, setOpen] = useState(true);
 
-  const onOpenModal = () => {
-    if (largeImage) {
-      setOpen(true);
-    }
-  };
+  // const onOpenModal = () => {
+  //   if (largeImage) {
+  //     setOpen(true);
+  //   }
+  // };
 
   const onCloseModal = () => {
     if (largeImage) {
