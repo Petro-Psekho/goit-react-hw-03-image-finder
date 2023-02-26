@@ -1,7 +1,12 @@
+import {
+  GalleryItem,
+  GalleryItemImage,
+} from 'components/ImageGalleryItem/ImageGalleryItem.styled';
+
 export const ImageGalleryItem = ({ id, webformatURL }) => {
   return (
-    <li key={id} className="gallery-item">
-      <img src={webformatURL} alt="" />
-    </li>
+    <GalleryItem key={id} className="gallery-item">
+      <GalleryItemImage src={webformatURL} alt="" />
+    </GalleryItem>
   );
 };
