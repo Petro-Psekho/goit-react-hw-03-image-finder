@@ -4,6 +4,7 @@ import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Button } from 'components/Button/Button';
 import { Loader } from 'components/Loader/Loader';
+import { Modalka } from 'components/Modal/Modal';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,6 +17,7 @@ class App extends Component {
     page: 1,
     showLoadMoreBtn: false,
     loading: false,
+    largeImage: '',
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -50,6 +52,11 @@ class App extends Component {
     });
   };
 
+  handleModalImage = event => {
+    console.log(event);
+    this.setState({ largeImage: event });
+  };
+
   handleLoadMore = () => {
     this.setState(prevState => ({
       page: prevState.page + 1,
@@ -57,14 +64,17 @@ class App extends Component {
   };
 
   render() {
-    const { images, showLoadMoreBtn } = this.state;
+    const { images, showLoadMoreBtn, largeImage } = this.state;
 
     return (
       <Container>
         <Searchbar onSubmit={this.searchQueryValue} />
-        <ImageGallery images={images} />
+        <Modalka largeImage={largeImage} />
+        <ImageGallery
+          images={images}
+          handleModalImage={this.handleModalImage}
+        />
         {this.state.loading && <Loader />}
-
         {showLoadMoreBtn === 0 && <Button onClick={this.handleLoadMore} />}
 
         <ToastContainer position="top-center" autoClose={1500} />
