@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-responsive-modal';
-import 'react-responsive-modal/styles.css';
+import 'components/Modal/styles.css';
 
-export const Modalka = ({ largeImage, largeImageStateReset }) => {
+export const ModalWindow = ({ largeImage, largeImageStateReset }) => {
   const [open, setOpen] = useState(true);
 
   // const onOpenModal = () => {

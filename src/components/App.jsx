@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import { Container } from 'components/App.styled';
+import { ToastContainer, toast } from 'react-toastify';
+import { fetchQuery } from 'services/api';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Button } from 'components/Button/Button';
 import { Loader } from 'components/Loader/Loader';
-import { Modalka } from 'components/Modal/Modal';
-import { ToastContainer, toast } from 'react-toastify';
-
+import { ModalWindow } from 'components/Modal/Modal';
+import { Container } from 'components/App.styled';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { fetchQuery } from 'serices/api';
 class App extends Component {
   state = {
     searchQuery: '',
     images: [],
     page: 1,
-    showLoadMoreBtn: false,
+    totalImages: 0,
     loading: false,
     largeImage: '',
   };
@@ -29,8 +28,8 @@ class App extends Component {
       fetchQuery(searchQuery, page)
         .then(resp =>
           this.setState(prevState => ({
-            images: [...prevState.images, ...resp.hits],
-            showLoadMoreBtn: 12 - resp.hits.length,
+            images: [...prevState.images, ...resp.images],
+            totalImages: resp.TotalHits,
           }))
         )
         .catch(error => console.log(error))
@@ -47,6 +46,7 @@ class App extends Component {
     this.setState({
       searchQuery: value,
       page: 1,
+      totalImages: 0,
       images: [],
       showLoadMoreBtn: false,
     });
@@ -67,29 +67,25 @@ class App extends Component {
   };
 
   render() {
-    const { images, showLoadMoreBtn, largeImage, loading } = this.state;
-    const {
-      largeImageStateReset,
-      searchQueryValue,
-      getModalImage,
-      handleLoadMore,
-    } = this;
+    const { images, largeImage, loading, totalImages } = this.state;
 
     return (
       <Container>
-        {largeImage && (
-          <Modalka
-            largeImage={largeImage}
-            largeImageStateReset={largeImageStateReset}
-          />
+        <Searchbar onSubmit={this.searchQueryValue} />
+        <ImageGallery images={images} getModalImage={this.getModalImage} />
+        {loading && <Loader />}
+        {totalImages !== images.length && (
+          <Button onClick={this.handleLoadMore} />
         )}
 
-        <Searchbar onSubmit={searchQueryValue} />
-        <ImageGallery images={images} getModalImage={getModalImage} />
-        {loading && <Loader />}
-        {showLoadMoreBtn === 0 && <Button onClick={handleLoadMore} />}
-
         <ToastContainer position="top-center" autoClose={1500} />
+
+        {largeImage && (
+          <ModalWindow
+            largeImage={largeImage}
+            largeImageStateReset={this.largeImageStateReset}
+          />
+        )}
       </Container>
     );
   }
