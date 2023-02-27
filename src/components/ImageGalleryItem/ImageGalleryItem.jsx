@@ -8,7 +8,7 @@ export const ImageGalleryItem = ({
   webformatURL,
   tags,
   largeImageURL,
-  handleModalImage,
+  getModalImage,
 }) => {
   return (
     <GalleryItem key={id}>
@@ -16,7 +16,7 @@ export const ImageGalleryItem = ({
         src={webformatURL}
         alt={tags}
         onClick={() => {
-          handleModalImage(largeImageURL);
+          getModalImage(largeImageURL);
         }}
       />
     </GalleryItem>

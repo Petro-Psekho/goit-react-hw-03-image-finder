@@ -52,13 +52,11 @@ class App extends Component {
     });
   };
 
-  handleModalImage = event => {
-    console.log(event);
-
-    this.setState({ largeImage: event });
+  getModalImage = imageUrl => {
+    this.setState({ largeImage: imageUrl });
   };
 
-  largeImageDel = e => {
+  largeImageStateReset = () => {
     this.setState({ largeImage: '' });
   };
 
@@ -74,14 +72,14 @@ class App extends Component {
     return (
       <Container>
         {largeImage && (
-          <Modalka largeImage={largeImage} largeImageDel={this.largeImageDel} />
+          <Modalka
+            largeImage={largeImage}
+            largeImageStateReset={this.largeImageStateReset}
+          />
         )}
 
         <Searchbar onSubmit={this.searchQueryValue} />
-        <ImageGallery
-          images={images}
-          handleModalImage={this.handleModalImage}
-        />
+        <ImageGallery images={images} getModalImage={this.getModalImage} />
         {this.state.loading && <Loader />}
         {showLoadMoreBtn === 0 && <Button onClick={this.handleLoadMore} />}
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 
-export const Modalka = ({ largeImage, largeImageDel }) => {
+export const Modalka = ({ largeImage, largeImageStateReset }) => {
   const [open, setOpen] = useState(true);
 
   // const onOpenModal = () => {
@@ -13,7 +13,7 @@ export const Modalka = ({ largeImage, largeImageDel }) => {
 
   const onCloseModal = () => {
     if (largeImage) {
-      largeImageDel();
+      largeImageStateReset();
     }
 
     setOpen(false);
