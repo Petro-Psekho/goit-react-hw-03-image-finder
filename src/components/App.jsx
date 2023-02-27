@@ -67,21 +67,27 @@ class App extends Component {
   };
 
   render() {
-    const { images, showLoadMoreBtn, largeImage } = this.state;
+    const { images, showLoadMoreBtn, largeImage, loading } = this.state;
+    const {
+      largeImageStateReset,
+      searchQueryValue,
+      getModalImage,
+      handleLoadMore,
+    } = this;
 
     return (
       <Container>
         {largeImage && (
           <Modalka
             largeImage={largeImage}
-            largeImageStateReset={this.largeImageStateReset}
+            largeImageStateReset={largeImageStateReset}
           />
         )}
 
-        <Searchbar onSubmit={this.searchQueryValue} />
-        <ImageGallery images={images} getModalImage={this.getModalImage} />
-        {this.state.loading && <Loader />}
-        {showLoadMoreBtn === 0 && <Button onClick={this.handleLoadMore} />}
+        <Searchbar onSubmit={searchQueryValue} />
+        <ImageGallery images={images} getModalImage={getModalImage} />
+        {loading && <Loader />}
+        {showLoadMoreBtn === 0 && <Button onClick={handleLoadMore} />}
 
         <ToastContainer position="top-center" autoClose={1500} />
       </Container>
